@@ -12,9 +12,9 @@ import java.util.Scanner;
 public class NegativeCycle {
     private static int negativeCycle(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost) {
         int[] distance = new int[adj.length];
-    	int[] previous = new int[adj.length];	
+    	int[] previous = new int[adj.length];
     	for (int i = 0; i < adj.length; i++) {
-			distance[i] = Integer.MAX_VALUE;
+			distance[i] = Integer.MAX_VALUE/10;
 			previous[i] = -1;
 		}
     	distance[0] = 0;
@@ -22,9 +22,9 @@ public class NegativeCycle {
 			boolean change = false;
 			for(int j = 0; j<adj.length;j++){
 				for (int k = 0;k<adj[j].size(); k++) {
-					if(distance[j]!=Integer.MAX_VALUE && distance[k]>distance[j]+cost[j].get(k)) {
+					if(distance[adj[j].get(k)]>distance[j]+cost[j].get(k)) {
 						change = true;
-						distance[k] = distance[j]+cost[j].get(k);
+						distance[adj[j].get(k)] = distance[j]+cost[j].get(k);
 					}
 				}
 			}
