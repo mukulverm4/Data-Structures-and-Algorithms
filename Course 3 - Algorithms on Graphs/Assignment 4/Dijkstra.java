@@ -11,47 +11,40 @@ exceeding 10 3 .
 Output Format. Output the minimum weight of a path from u to v, or −1 if there is no path.
 
 */
-
 public class Dijkstra {
 	private static int distance(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
-
-		int[] distance = new int[adj.length];
-		int[] previous = new int[adj.length];
+		int[] distance  = new int[adj.length];
+		//int[] previous = new int[adj.length];
 		boolean[] visited = new boolean[adj.length];
-
 		for (int i = 0; i < adj.length; i++) {
 			distance[i] = Integer.MAX_VALUE;
-			previous[i] = -1;
+			//previous[i] = -1;
 		}
 		distance[s] = 0;
 		int minIndex = s;
-		while(minIndex!=Integer.MAX_VALUE) {
-	
-
-			if(minIndex!= Integer.MAX_VALUE) {
+		while(minIndex!=-1) {
+			if(distance[minIndex]!=Integer.MAX_VALUE) {
 				for (int i = 0; i < adj[minIndex].size(); i++) {
 					if(distance[adj[minIndex].get(i)]>distance[minIndex]+cost[minIndex].get(i))
 						distance[adj[minIndex].get(i)] = distance[minIndex] + cost[minIndex].get(i);
 				}
 			}
-
 			visited[minIndex] = true;
 			minIndex = extractMin(distance, visited);
 		}
-
-
 		return distance[t]==Integer.MAX_VALUE?-1:distance[t];
 	}
 
 	private static int extractMin(int[] distance, boolean[] visited) {
-
 		int min = Integer.MAX_VALUE;
+		int minIndex = -1;
 		for (int i = 0; i < distance.length; i++) {
-			if(distance[i]<min && !visited[i])
-				min = i;
+			if(distance[i]<=min && !visited[i]) {
+				min=distance[i];
+				minIndex = i;
+			}
 		}
-
-		return min;
+		return minIndex;
 	}
 
 
@@ -79,3 +72,4 @@ public class Dijkstra {
 		System.out.println(distance(adj, cost, x, y));
 	}
 }
+
